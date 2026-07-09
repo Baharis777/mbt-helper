@@ -1,0 +1,12 @@
+{
+  "name": "mbt-helper",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:knowledge": "tsx scripts/testKnowledgeSearch.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
+  }
+}
