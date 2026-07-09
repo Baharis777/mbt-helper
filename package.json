@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "import:batur:snapshot": "tsx scripts/importBaturSourceSnapshot.ts",
     "test:knowledge": "tsx scripts/testKnowledgeSearch.ts"
   },
   "devDependencies": {
