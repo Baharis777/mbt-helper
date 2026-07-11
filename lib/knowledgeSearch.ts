@@ -16,6 +16,8 @@ const ACTIVE_MARKDOWN_ROOTS = [
   'knowledge/policies',
   'knowledge/live-status',
   'knowledge/sales',
+  'knowledge/rules',
+  'knowledge/playbooks',
   'examples/conversations',
 ];
 
