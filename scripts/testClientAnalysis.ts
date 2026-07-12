@@ -1,132 +1,128 @@
 import assert from 'node:assert/strict';
-import { inspect } from 'node:util';
+import { readFileSync } from 'node:fs';
+
 import { analyzeClientMessage } from '../lib/analyzeClientMessage.js';
+import type { ManagerAnalysis } from '../types/assistant.js';
 
-const testCases = [
-  {
-    name: 'Batur with hot springs and Canggu',
-    message: 'Нас двое, живем в Чангу, хотим Батур с горячими источниками.',
-    expected: [
-      'guest_count: 2',
-      'hotel_area: Canggu',
-      'wants_hot_springs: true',
-      'travel_date missing',
-      'variant with transfer and hot springs preferred, but facts may require review',
-    ],
-  },
-  {
-    name: 'Lowest price with own transport',
-    message: 'Хотим самый дешевый вариант, сами доберемся.',
-    expected: [
-      'budget priority',
-      'own transport: true',
-      'meeting-at-base variant may be suitable only after facts are confirmed',
-    ],
-  },
-  {
-    name: 'Child age',
-    message: 'Можно ли ребенку 6 лет?',
-    expected: [
-      'child mentioned',
-      'child age: 6',
-      'internal warning',
-      'manual clarification or review required',
-    ],
-  },
-  {
-    name: 'Current safety',
-    message: 'Сейчас безопасно подниматься на Батур?',
-    expected: [
-      'safety intent',
-      'check_live_status',
-      'no safety confirmation',
-    ],
-  },
-  {
-    name: 'Bad knees but sunrise',
-    message: 'У меня проблемы с коленями, но хочу встретить рассвет.',
-    expected: [
-      'health constraint',
-      'trekking should not be recommended without clarification',
-      'internal warning',
-    ],
-  },
-];
-
-for (const testCase of testCases) {
-  const analysis = analyzeClientMessage({ message: testCase.message });
-
-  console.log(`\n## ${testCase.name}`);
-  console.log(`Message: ${testCase.message}`);
-  console.log('Expected:');
-  for (const expected of testCase.expected) {
-    console.log(`- ${expected}`);
-  }
-
-  console.log('Analysis summary:');
-  console.log(inspect({
-    clientLanguage: analysis.clientLanguage,
-    intents: analysis.intents.map((intent) => intent.type),
-    profile: {
-      travelDate: analysis.profile.travelDate,
-      guestCount: analysis.profile.guestCount,
-      children: analysis.profile.children,
-      childAges: analysis.profile.childAges,
-      hotelArea: analysis.profile.hotelArea,
-      ownTransport: analysis.profile.ownTransport,
-      needsTransfer: analysis.profile.needsTransfer,
-      wantsHotSprings: analysis.profile.wantsHotSprings,
-      formatPreference: analysis.profile.formatPreference,
-      budget: analysis.profile.budget,
-      healthOrFitnessLimitations: analysis.profile.healthOrFitnessLimitations,
-    },
-    missingInformation: analysis.missingInformation,
-    internalWarnings: analysis.internalWarnings,
-    nextBestAction: analysis.nextBestAction,
-    topVariants: analysis.suitableVariants.slice(0, 3).map((variant) => ({
-      variantId: variant.variantId,
-      score: variant.score,
-      status: variant.status,
-      requiresReview: variant.requiresReview,
-      missingFacts: variant.missingFacts,
-    })),
-  }, { depth: null, colors: false }));
-
-  runAssertions(testCase.name, analysis);
+interface ClientAnalysisCase {
+  id: string;
+  message: string;
+  expected: {
+    clientLanguage?: string;
+    intentsInclude?: string[];
+    profile?: Record<string, unknown>;
+    healthIncludes?: string[];
+    missingFieldsInclude?: string[];
+    missingFieldsExact?: string[];
+    warningsInclude?: string[];
+    nextAction?: string;
+    maxClarificationQuestions?: number;
+  };
 }
 
-function runAssertions(name: string, analysis: ReturnType<typeof analyzeClientMessage>): void {
-  if (name === 'Batur with hot springs and Canggu') {
-    assert.equal(analysis.profile.guestCount, 2);
-    assert.equal(analysis.profile.hotelArea, 'Canggu');
-    assert.equal(analysis.profile.wantsHotSprings, true);
-    assert.equal(analysis.profile.travelDate, null);
-    assert.equal(analysis.nextBestAction.type, 'ask_clarification');
-    assert.ok(analysis.suitableVariants.some((variant) => variant.missingFacts.includes('hot_springs_included')));
+interface ClientAnalysisCasesFile {
+  cases: ClientAnalysisCase[];
+}
+
+interface TestFailure {
+  id: string;
+  reason: string;
+}
+
+const casesFile = JSON.parse(
+  readFileSync('tests/batur/client-analysis-cases.json', 'utf8'),
+) as ClientAnalysisCasesFile;
+
+const failures: TestFailure[] = [];
+
+for (const testCase of casesFile.cases) {
+  try {
+    const analysis = analyzeClientMessage({ message: testCase.message });
+    assertClientAnalysis(testCase, analysis);
+  } catch (error) {
+    failures.push({
+      id: testCase.id,
+      reason: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
+const passed = casesFile.cases.length - failures.length;
+
+console.log('Client analysis test results');
+console.log(`Total cases: ${casesFile.cases.length}`);
+console.log(`Passed: ${passed}`);
+console.log(`Failed: ${failures.length}`);
+
+if (failures.length > 0) {
+  console.log('Failure reasons:');
+  for (const failure of failures) {
+    console.log(`- ${failure.id}: ${failure.reason}`);
+  }
+  process.exit(1);
+}
+
+console.log('Failure reasons: none');
+console.log('Coverage gaps: phrase matching is deterministic; date normalization, spelling variants, and full dialogue context are not covered yet.');
+
+function assertClientAnalysis(testCase: ClientAnalysisCase, analysis: ManagerAnalysis): void {
+  const { expected } = testCase;
+
+  if (expected.clientLanguage !== undefined) {
+    assert.equal(analysis.clientLanguage, expected.clientLanguage, 'clientLanguage mismatch');
   }
 
-  if (name === 'Lowest price with own transport') {
-    assert.equal(analysis.profile.budget, 'lowest_price');
-    assert.equal(analysis.profile.ownTransport, true);
-    assert.ok(analysis.suitableVariants.some((variant) => variant.missingFacts.includes('price')));
+  for (const intent of expected.intentsInclude ?? []) {
+    assert.ok(
+      analysis.intents.some((actualIntent) => actualIntent.type === intent),
+      `missing intent: ${intent}`,
+    );
   }
 
-  if (name === 'Child age') {
-    assert.equal(analysis.profile.children, 1);
-    assert.deepEqual(analysis.profile.childAges, [6]);
-    assert.equal(analysis.nextBestAction.type, 'manual_review');
-    assert.ok(analysis.internalWarnings.length > 0);
+  for (const [field, expectedValue] of Object.entries(expected.profile ?? {})) {
+    assert.deepEqual(
+      analysis.profile[field as keyof typeof analysis.profile],
+      expectedValue,
+      `profile.${field} mismatch`,
+    );
   }
 
-  if (name === 'Current safety') {
-    assert.ok(analysis.intents.some((intent) => intent.type === 'safety'));
-    assert.equal(analysis.nextBestAction.type, 'check_live_status');
-    assert.ok(analysis.internalWarnings.some((warning) => warning.includes('Не подтверждать безопасность')));
+  for (const healthValue of expected.healthIncludes ?? []) {
+    assert.ok(
+      analysis.profile.healthOrFitnessLimitations.includes(healthValue),
+      `missing health limitation: ${healthValue}`,
+    );
   }
 
-  if (name === 'Bad knees but sunrise') {
-    assert.ok(analysis.profile.healthOrFitnessLimitations.includes('knees'));
-    assert.equal(analysis.nextBestAction.type, 'ask_clarification');
-    assert.ok(analysis.internalWarnings.some((warning) => warning.includes('треккинг нельзя рекомендовать')));
+  const missingFields = analysis.missingInformation.map((item) => item.field);
+
+  for (const field of expected.missingFieldsInclude ?? []) {
+    assert.ok(missingFields.includes(field), `missing clarification field: ${field}`);
+  }
+
+  if (expected.missingFieldsExact !== undefined) {
+    assert.deepEqual(missingFields, expected.missingFieldsExact, 'missing fields mismatch');
+  }
+
+  for (const warningNeedle of expected.warningsInclude ?? []) {
+    assert.ok(
+      analysis.internalWarnings.some((warning) => warning.toLocaleLowerCase('ru-RU').includes(warningNeedle.toLocaleLowerCase('ru-RU'))),
+      `missing warning containing: ${warningNeedle}`,
+    );
+  }
+
+  if (expected.nextAction !== undefined) {
+    assert.equal(analysis.nextBestAction.type, expected.nextAction, 'next action mismatch');
+  }
+
+  if (expected.maxClarificationQuestions !== undefined) {
+    assert.ok(
+      analysis.missingInformation.length <= expected.maxClarificationQuestions,
+      `too many clarification questions: ${analysis.missingInformation.length}`,
+    );
+    assert.ok(
+      analysis.nextBestAction.questions.length <= expected.maxClarificationQuestions,
+      `too many next-action questions: ${analysis.nextBestAction.questions.length}`,
+    );
   }
 }

@@ -1,0 +1,349 @@
+{
+  "variantFixtures": {
+    "transfer-group": {
+      "variantId": "transfer-group",
+      "sourceUrl": "fixture://transfer-group",
+      "exactSiteName": "Confirmed transfer group variant",
+      "format": "trekking",
+      "transferIncluded": "yes",
+      "hotSpringsIncluded": "no",
+      "privateOrGroup": "group",
+      "pickupAreaRules": "pickup from main hotel areas",
+      "duration": "confirmed",
+      "price": "180",
+      "included": "confirmed",
+      "notIncluded": "confirmed",
+      "cancellationRules": "confirmed",
+      "bestFor": "confirmed",
+      "notGoodFor": "confirmed",
+      "recommendedFor": "confirmed",
+      "notRecommendedFor": "confirmed",
+      "decisionSummary": "confirmed",
+      "managerPriority": "confirmed",
+      "managerNotes": "confirmed",
+      "status": "active"
+    },
+    "meeting-base-budget": {
+      "variantId": "meeting-base-budget",
+      "sourceUrl": "fixture://meeting-base-budget",
+      "exactSiteName": "Confirmed meeting at base variant",
+      "format": "trekking",
+      "transferIncluded": "no",
+      "hotSpringsIncluded": "no",
+      "privateOrGroup": "group",
+      "pickupAreaRules": "встреча на базе",
+      "duration": "confirmed",
+      "price": "100",
+      "included": "confirmed",
+      "notIncluded": "confirmed",
+      "cancellationRules": "confirmed",
+      "bestFor": "own transport",
+      "notGoodFor": "no transport",
+      "recommendedFor": "встреча на базе для клиентов со своим транспортом",
+      "notRecommendedFor": "no transport",
+      "decisionSummary": "встреча на базе",
+      "managerPriority": "confirmed",
+      "managerNotes": "confirmed",
+      "status": "active"
+    },
+    "hot-springs-included": {
+      "variantId": "hot-springs-included",
+      "sourceUrl": "fixture://hot-springs-included",
+      "exactSiteName": "Confirmed hot springs variant",
+      "format": "trekking",
+      "transferIncluded": "yes",
+      "hotSpringsIncluded": "yes",
+      "privateOrGroup": "group",
+      "pickupAreaRules": "pickup from main hotel areas",
+      "duration": "confirmed",
+      "price": "220",
+      "included": "hot springs confirmed",
+      "notIncluded": "confirmed",
+      "cancellationRules": "confirmed",
+      "bestFor": "hot springs",
+      "notGoodFor": "confirmed",
+      "recommendedFor": "hot springs",
+      "notRecommendedFor": "confirmed",
+      "decisionSummary": "hot springs included",
+      "managerPriority": "confirmed",
+      "managerNotes": "confirmed",
+      "status": "active"
+    },
+    "hot-springs-separate-upsell": {
+      "variantId": "hot-springs-separate-upsell",
+      "sourceUrl": "fixture://hot-springs-separate-upsell",
+      "exactSiteName": "Confirmed no hot springs variant",
+      "format": "trekking",
+      "transferIncluded": "yes",
+      "hotSpringsIncluded": "no",
+      "privateOrGroup": "group",
+      "pickupAreaRules": "pickup from main hotel areas",
+      "duration": "confirmed",
+      "price": "170",
+      "included": "confirmed",
+      "notIncluded": "hot springs not included",
+      "cancellationRules": "confirmed",
+      "bestFor": "confirmed",
+      "notGoodFor": "hot springs",
+      "recommendedFor": "confirmed",
+      "notRecommendedFor": "hot springs",
+      "decisionSummary": "could require separate service",
+      "managerPriority": "confirmed",
+      "managerNotes": "do not upsell separately when included variant fits",
+      "status": "active"
+    },
+    "private-variant": {
+      "variantId": "private-variant",
+      "sourceUrl": "fixture://private-variant",
+      "exactSiteName": "Confirmed private variant",
+      "format": "trekking",
+      "transferIncluded": "yes",
+      "hotSpringsIncluded": "no",
+      "privateOrGroup": "private",
+      "pickupAreaRules": "pickup from main hotel areas",
+      "duration": "confirmed",
+      "price": "300",
+      "included": "confirmed",
+      "notIncluded": "confirmed",
+      "cancellationRules": "confirmed",
+      "bestFor": "private",
+      "notGoodFor": "confirmed",
+      "recommendedFor": "private",
+      "notRecommendedFor": "confirmed",
+      "decisionSummary": "private confirmed",
+      "managerPriority": "confirmed",
+      "managerNotes": "confirmed",
+      "status": "active"
+    },
+    "unknown-variant": {
+      "variantId": "unknown-variant",
+      "sourceUrl": "fixture://unknown-variant",
+      "exactSiteName": "NEEDS_REVIEW",
+      "format": "NEEDS_REVIEW",
+      "transferIncluded": "NEEDS_REVIEW",
+      "hotSpringsIncluded": "NEEDS_REVIEW",
+      "privateOrGroup": "NEEDS_REVIEW",
+      "pickupAreaRules": "NEEDS_REVIEW",
+      "duration": "NEEDS_REVIEW",
+      "price": "NEEDS_REVIEW",
+      "included": "NEEDS_REVIEW",
+      "notIncluded": "NEEDS_REVIEW",
+      "cancellationRules": "NEEDS_REVIEW",
+      "bestFor": "NEEDS_REVIEW",
+      "notGoodFor": "NEEDS_REVIEW",
+      "recommendedFor": "NEEDS_REVIEW",
+      "notRecommendedFor": "NEEDS_REVIEW",
+      "decisionSummary": "NEEDS_REVIEW",
+      "managerPriority": "NEEDS_REVIEW",
+      "managerNotes": "NEEDS_REVIEW",
+      "status": "needs_import"
+    },
+    "jeep-no-hike": {
+      "variantId": "jeep-no-hike",
+      "sourceUrl": "fixture://jeep-no-hike",
+      "exactSiteName": "Confirmed jeep variant",
+      "format": "jeep без восхождения",
+      "transferIncluded": "yes",
+      "hotSpringsIncluded": "no",
+      "privateOrGroup": "private",
+      "pickupAreaRules": "pickup from main hotel areas",
+      "duration": "confirmed",
+      "price": "240",
+      "included": "confirmed",
+      "notIncluded": "confirmed",
+      "cancellationRules": "confirmed",
+      "bestFor": "no hike",
+      "notGoodFor": "confirmed",
+      "recommendedFor": "no hike",
+      "notRecommendedFor": "confirmed",
+      "decisionSummary": "jeep without hike confirmed",
+      "managerPriority": "confirmed",
+      "managerNotes": "confirmed",
+      "status": "active"
+    }
+  },
+  "cases": [
+    {
+      "id": "transfer-included-preferred-over-meeting-base",
+      "profile": {
+        "needsTransfer": true,
+        "ownTransport": false,
+        "hotelArea": "Canggu"
+      },
+      "variants": ["transfer-group", "meeting-base-budget"],
+      "expected": {
+        "topVariantId": "transfer-group",
+        "variantStatuses": {
+          "transfer-group": "suitable",
+          "meeting-base-budget": "unsuitable"
+        }
+      }
+    },
+    {
+      "id": "meeting-base-not-recommended-without-transport",
+      "profile": {
+        "needsTransfer": true,
+        "ownTransport": false
+      },
+      "variants": ["meeting-base-budget"],
+      "expected": {
+        "topVariantId": "meeting-base-budget",
+        "variantStatuses": {
+          "meeting-base-budget": "unsuitable"
+        },
+        "warningsInclude": {
+          "meeting-base-budget": ["Не рекомендовать формат встречи на базе"]
+        }
+      }
+    },
+    {
+      "id": "own-transport-allows-meeting-base",
+      "profile": {
+        "ownTransport": true,
+        "needsTransfer": false,
+        "budget": "lowest_price"
+      },
+      "variants": ["meeting-base-budget", "transfer-group"],
+      "expected": {
+        "topVariantId": "meeting-base-budget",
+        "variantStatuses": {
+          "meeting-base-budget": "suitable"
+        }
+      }
+    },
+    {
+      "id": "hot-springs-included-preferred-over-separate-upsell",
+      "profile": {
+        "wantsHotSprings": true,
+        "needsTransfer": true
+      },
+      "variants": ["hot-springs-included", "hot-springs-separate-upsell"],
+      "expected": {
+        "topVariantId": "hot-springs-included",
+        "variantStatuses": {
+          "hot-springs-included": "suitable",
+          "hot-springs-separate-upsell": "unsuitable"
+        }
+      }
+    },
+    {
+      "id": "budget-with-confirmed-price-over-unknown-price",
+      "profile": {
+        "ownTransport": true,
+        "needsTransfer": false,
+        "budget": "lowest_price"
+      },
+      "variants": ["meeting-base-budget", "unknown-variant"],
+      "expected": {
+        "topVariantId": "meeting-base-budget",
+        "variantStatuses": {
+          "unknown-variant": "candidate_needs_review"
+        },
+        "missingFactsInclude": {
+          "unknown-variant": ["price", "exact_site_name", "availability"]
+        }
+      }
+    },
+    {
+      "id": "children-require-review",
+      "profile": {
+        "children": 1,
+        "childAges": [6],
+        "needsTransfer": true
+      },
+      "variants": ["transfer-group"],
+      "expected": {
+        "topVariantId": "transfer-group",
+        "variantStatuses": {
+          "transfer-group": "candidate_needs_review"
+        },
+        "missingFactsInclude": {
+          "transfer-group": ["age_restrictions"]
+        },
+        "warningsInclude": {
+          "transfer-group": ["Есть ребенок"]
+        }
+      }
+    },
+    {
+      "id": "health-limitations-require-review",
+      "profile": {
+        "healthOrFitnessLimitations": ["knees"],
+        "formatPreference": "trekking"
+      },
+      "variants": ["transfer-group"],
+      "expected": {
+        "topVariantId": "transfer-group",
+        "variantStatuses": {
+          "transfer-group": "candidate_needs_review"
+        },
+        "missingFactsInclude": {
+          "transfer-group": ["health_and_fitness_restrictions"]
+        },
+        "warningsInclude": {
+          "transfer-group": ["ограничения по здоровью"]
+        }
+      }
+    },
+    {
+      "id": "private-preferred-over-group",
+      "profile": {
+        "formatPreference": "private",
+        "needsTransfer": true
+      },
+      "variants": ["private-variant", "transfer-group"],
+      "expected": {
+        "topVariantId": "private-variant"
+      }
+    },
+    {
+      "id": "group-preferred-for-group-request",
+      "profile": {
+        "formatPreference": "group",
+        "needsTransfer": true
+      },
+      "variants": ["transfer-group", "private-variant"],
+      "expected": {
+        "topVariantId": "transfer-group"
+      }
+    },
+    {
+      "id": "insufficient-confirmed-product-facts",
+      "profile": {
+        "needsTransfer": true,
+        "wantsHotSprings": true
+      },
+      "variants": ["unknown-variant"],
+      "expected": {
+        "topVariantId": "unknown-variant",
+        "noSuitableVariants": true,
+        "variantStatuses": {
+          "unknown-variant": "candidate_needs_review"
+        },
+        "missingFactsInclude": {
+          "unknown-variant": ["transfer_included", "pickup_area_rules", "hot_springs_included", "exact_site_name", "availability"]
+        }
+      }
+    },
+    {
+      "id": "no-hike-prefers-jeep-confirmed-format",
+      "profile": {
+        "formatPreference": "no_hike",
+        "needsTransfer": true
+      },
+      "variants": ["jeep-no-hike", "transfer-group"],
+      "expected": {
+        "topVariantId": "jeep-no-hike"
+      }
+    },
+    {
+      "id": "safety-question-requires-live-status",
+      "message": "Сейчас безопасно подниматься на Батур?",
+      "expected": {
+        "nextAction": "check_live_status",
+        "warningsInclude": ["Не подтверждать безопасность"],
+        "noPositiveSafetyConfirmation": true
+      }
+    }
+  ]
+}

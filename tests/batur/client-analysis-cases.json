@@ -1,0 +1,217 @@
+{
+  "cases": [
+    {
+      "id": "two-guests-canggu-hot-springs",
+      "message": "Нас двое, живем в Чангу, хотим Батур с горячими источниками.",
+      "expected": {
+        "clientLanguage": "ru",
+        "intentsInclude": ["mount_batur", "hot_springs", "transfer"],
+        "profile": {
+          "guestCount": 2,
+          "hotelArea": "Canggu",
+          "needsTransfer": true,
+          "wantsHotSprings": true,
+          "travelDate": null
+        },
+        "missingFieldsInclude": ["travel_date"],
+        "warningsInclude": ["Горячие источники"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "transfer-needed-ubud-tomorrow",
+      "message": "Нужен трансфер из отеля в Убуде на Батур завтра.",
+      "expected": {
+        "intentsInclude": ["mount_batur", "transfer"],
+        "profile": {
+          "hotelArea": "Ubud",
+          "needsTransfer": true,
+          "ownTransport": false,
+          "travelDate": "tomorrow"
+        },
+        "missingFieldsInclude": ["guest_count"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "own-transport",
+      "message": "Хотим на Батур, сами доберемся.",
+      "expected": {
+        "intentsInclude": ["mount_batur"],
+        "profile": {
+          "ownTransport": true,
+          "needsTransfer": false
+        },
+        "missingFieldsInclude": ["travel_date", "guest_count"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "group-preference",
+      "message": "Хотим групповой тур на Батур.",
+      "expected": {
+        "intentsInclude": ["mount_batur"],
+        "profile": {
+          "formatPreference": "group"
+        },
+        "missingFieldsInclude": ["travel_date", "hotel_area", "guest_count"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "private-preference",
+      "message": "Нужен индивидуальный private вариант Батура.",
+      "expected": {
+        "intentsInclude": ["mount_batur"],
+        "profile": {
+          "formatPreference": "private"
+        },
+        "missingFieldsInclude": ["travel_date", "hotel_area", "guest_count"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "limited-budget",
+      "message": "Хотим недорогой вариант Батура.",
+      "expected": {
+        "intentsInclude": ["mount_batur", "price"],
+        "profile": {
+          "budget": "budget_sensitive"
+        },
+        "missingFieldsInclude": ["travel_date", "hotel_area", "guest_count"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "lowest-budget-own-transport",
+      "message": "Хотим самый дешевый вариант, сами доберемся.",
+      "expected": {
+        "intentsInclude": ["price"],
+        "profile": {
+          "budget": "lowest_price",
+          "ownTransport": true,
+          "needsTransfer": false
+        },
+        "missingFieldsInclude": ["travel_date", "guest_count"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "child-age",
+      "message": "Можно ли ребенку 6 лет на Батур?",
+      "expected": {
+        "intentsInclude": ["mount_batur"],
+        "profile": {
+          "children": 1,
+          "childAges": [6]
+        },
+        "missingFieldsInclude": ["travel_date"],
+        "warningsInclude": ["ребенок"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "bad-knees",
+      "message": "У меня проблемы с коленями, но хочу встретить рассвет на Батуре.",
+      "expected": {
+        "intentsInclude": ["mount_batur", "sunrise_trekking"],
+        "profile": {
+          "formatPreference": "trekking"
+        },
+        "healthIncludes": ["knees"],
+        "missingFieldsInclude": ["travel_date", "health_details"],
+        "warningsInclude": ["треккинг нельзя рекомендовать"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "pregnancy",
+      "message": "Я беременна, можно на Батур?",
+      "expected": {
+        "intentsInclude": ["mount_batur"],
+        "healthIncludes": ["pregnancy"],
+        "missingFieldsInclude": ["travel_date", "health_details"],
+        "warningsInclude": ["треккинг нельзя рекомендовать"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "elderly-guests",
+      "message": "С нами пожилые родители, хотим на Батур.",
+      "expected": {
+        "intentsInclude": ["mount_batur"],
+        "healthIncludes": ["elderly_guest"],
+        "missingFieldsInclude": ["travel_date", "health_details"],
+        "warningsInclude": ["треккинг нельзя рекомендовать"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "no-hiking-jeep",
+      "message": "Можно на Батур без восхождения, например на джипе?",
+      "expected": {
+        "intentsInclude": ["mount_batur", "no_hike_or_jeep"],
+        "profile": {
+          "formatPreference": "no_hike"
+        },
+        "missingFieldsInclude": ["travel_date"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "current-volcano-safety",
+      "message": "Сейчас безопасно подниматься на Батур? Вулкан активен?",
+      "expected": {
+        "intentsInclude": ["mount_batur", "safety"],
+        "missingFieldsExact": [],
+        "warningsInclude": ["Не подтверждать безопасность"],
+        "nextAction": "check_live_status",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "availability-request-complete-basics",
+      "message": "Есть места на Батур завтра? Нас двое, живем в Убуде.",
+      "expected": {
+        "intentsInclude": ["mount_batur", "availability", "transfer"],
+        "profile": {
+          "travelDate": "tomorrow",
+          "guestCount": 2,
+          "hotelArea": "Ubud",
+          "needsTransfer": true
+        },
+        "missingFieldsExact": [],
+        "nextAction": "check_availability",
+        "maxClarificationQuestions": 3
+      }
+    },
+    {
+      "id": "hotel-area-seminyak-two-guests-sunrise",
+      "message": "Хотим встретить рассвет на Батуре, 2 человека, живем в Семиньяке.",
+      "expected": {
+        "intentsInclude": ["mount_batur", "sunrise_trekking", "transfer"],
+        "profile": {
+          "guestCount": 2,
+          "hotelArea": "Seminyak",
+          "needsTransfer": true,
+          "formatPreference": "trekking"
+        },
+        "missingFieldsInclude": ["travel_date"],
+        "nextAction": "ask_clarification",
+        "maxClarificationQuestions": 3
+      }
+    }
+  ]
+}

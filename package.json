@@ -6,7 +6,9 @@
   "scripts": {
     "import:batur:snapshot": "tsx scripts/importBaturSourceSnapshot.ts",
     "test:analysis": "tsx scripts/testClientAnalysis.ts",
-    "test:knowledge": "tsx scripts/testKnowledgeSearch.ts"
+    "test:knowledge": "tsx scripts/testKnowledgeSearch.ts",
+    "test:recommendations": "tsx scripts/testBaturRecommendations.ts",
+    "test:all": "npm run test:knowledge && npm run test:analysis && npm run test:recommendations"
   },
   "devDependencies": {
     "tsx": "^4.20.6"
