@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "import:batur:snapshot": "tsx scripts/importBaturSourceSnapshot.ts",
+    "test:analysis": "tsx scripts/testClientAnalysis.ts",
     "test:knowledge": "tsx scripts/testKnowledgeSearch.ts"
   },
   "devDependencies": {
